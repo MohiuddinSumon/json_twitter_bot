@@ -97,20 +97,30 @@ def get_stream(set, client):
             tweet_id = json_response['data']['id']
             print(json.dumps(json_response, indent=4, sort_keys=True))
             print(tweet_id)
-            tweet_object = client.get_tweet(id=tweet_id, expansions="author_id,in_reply_to_user_id", 
+            tweet_object = client.get_tweet(id=tweet_id, expansions="author_id,in_reply_to_user_id",
                                             tweet_fields='conversation_id')
             tweet = tweet_object.data
-            print(tweet_object, tweet)
+            author_id = str(tweet['author_id'])
             parent_tweet = tweet.conversation_id
-            parent_user_id = tweet.in_reply_to_user_id
-            print(parent_tweet, parent_user_id)
-            # 1510490915432849409
-            client.like(parent_tweet)
-            client.retweet(parent_tweet)
-            client.create_tweet(in_reply_to_tweet_id=tweet_id, text='@0xafters @SnipeNFTs @prasdiman')
-            tweet_author = tweet_object.includes
-            print(tweet, tweet_author)
+            print(parent_tweet)
+            print(tweet_object, tweet, author_id)
 
+            for k,v in tweet.items():
+                print(k, v)
+
+            print("Author id", tweet['author_id'])
+            print("JSN ID = ", JSN_ID)
+            print("\n\n\n")
+            print(tweet['author_id'] == JSN_ID)
+            print(type(tweet['author_id']) , type(JSN_ID))
+            print(str(tweet['author_id']) == str(JSN_ID))
+
+            if author_id == JSN_ID:
+                print("mentioned by correct user")
+                client.like(parent_tweet)
+                client.retweet(parent_tweet)
+                client.create_tweet(in_reply_to_tweet_id=tweet_id, text='@0xafters @SnipeNFTs @prasdiman')
+                print(parent_tweet, tweet_id, client)
 
 
 def main():
@@ -118,6 +128,7 @@ def main():
     rules = get_rules()
     delete = delete_all_rules(rules)
     set = set_rules(delete)
+    print("\n\n\n")
     get_stream(set, client)
 
 

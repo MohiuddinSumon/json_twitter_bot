@@ -1,0 +1,11 @@
+API_KEY='your api key'
+API_SECRET='api secret'
+BEARER_TOKEN='token'
+
+USER_ACCESS_TOKEN='access token '
+USER_ACCESS_TOKEN_SECRET='token secret'
+
+CLIENT_ID='client id for oauth 2'
+CLIENT_SECRET='secret'
+
+JSN_ID='if specific user id is needed'
